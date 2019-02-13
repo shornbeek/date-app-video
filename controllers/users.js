@@ -1,5 +1,5 @@
 const {User} = require("./../models");
-console.log(User);
+
 module.exports = {
 
     findUser(req, res) {

@@ -23,6 +23,8 @@ module.exports = function(sequelize, DataTypes) {
         canCall: {
             type: DataTypes.BOOLEAN
         }
+    },{
+        timestamps: false
     });
     return Matches;
 }

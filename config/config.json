@@ -4,14 +4,14 @@
       "password": null,
       "database": "dateapp_db",
       "host": "127.0.0.1",
-      "dialect": "mysql"
+      "dialect": "mysql2"
     },
     "test": {
       "username": "root",
       "password": null,
       "database": "dateapp_db",
       "host": "127.0.0.1",
-      "dialect": "mysql"
+      "dialect": "mysql2"
     },
     "production": {
       "use_env_variable": "JAWSDB_URL",

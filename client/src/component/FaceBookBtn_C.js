@@ -33,7 +33,7 @@
 
 // export default FaceBookBtn_C;
 
-import React, { Component } from "react";
+import React, { Component, Redirect } from "react";
 import FacebookLogin from "react-facebook-login";
 // import Profile_C from "./Profile_C";
 
@@ -44,7 +44,9 @@ export default class FaceBookBtn_C extends Component {
     userID: "",
     name: "",
     email: "",
-    picture: ""
+    picture: "",
+    redirect: false
+
   };
 
   responseFacebook = response => {
@@ -59,9 +61,30 @@ export default class FaceBookBtn_C extends Component {
     });
   };
   
-  componentClicked = () => console.log("clicked");
+  componentClicked = () => {
+    console.log("clicked");
+    this.setState({
+      // redirect: true
+    })
+  } 
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  
+  renderRedirect = () => {
+
+  }
+
+
+
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/Profile' />
+    }
     let fbContent;
 
     if (this.state.isLoggedIn) {
@@ -71,20 +94,20 @@ export default class FaceBookBtn_C extends Component {
           style={{
             width: "400px",
             margin: "auto",
-            background: "#f4f4f4",
+            // background: "#f4f4f4",
             padding: "20px",
             // visibility: "hidden"
           }}
         > 
           <img 
           style={{
-            width: "300px",
+            width: "200px",
             margin: "auto",
             padding: "5px",
             // visibility: "hidden"
           }} src={this.state.picture} alt={this.state.name} />
           <h2> {this.state.name}</h2>
-          Email: {this.state.email}
+          {/* Email: {this.state.email} */}
         </div>
       // </Profile_C>
       );
@@ -100,7 +123,11 @@ export default class FaceBookBtn_C extends Component {
       );
     }
 
-    return <div>{fbContent}</div>;
+    return <div>
+       {this.renderRedirect()}
+        <button onClick={this.setRedirect}>Redirect</button>
+      <center>{fbContent}</center>
+      </div>;
   }
 }
 

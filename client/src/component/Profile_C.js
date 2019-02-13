@@ -35,9 +35,23 @@ class Profile_C extends Component {
       }
 
       handleFormSubmit = event => {
+        // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
-        console.log(userAPI.findIfUserExists(3));
-      }
+    
+        // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
+        alert(`Hello ${this.state.name} ${this.state.email} ${this.state.picture} ${this.state.age}`);
+        this.setState({
+          isLoggedIn: false,
+          userID: "",
+          name: "",
+          email: "",
+          picture: "",
+          age: "",
+          description: "",
+          gender: "",
+          looking: ""
+        });
+      };
 
       responseFacebook = response => {
         console.log(response);
@@ -63,20 +77,19 @@ class Profile_C extends Component {
               style={{
                 width: "400px",
                 margin: "auto",
-                background: "#f4f4f4",
                 padding: "20px",
                 // visibility: "hidden"
               }}
             > 
               <img 
               style={{
-                width: "300px",
+                width: "200px",
                 margin: "auto",
                 padding: "5px",
                 // visibility: "hidden"
               }} src={this.state.picture} alt={this.state.name} />
               <h2> {this.state.name}</h2>
-              Email: {this.state.email}
+              {/* Email: {this.state.email} */}
             </div>
           // </Profile_C>
           );
@@ -94,21 +107,23 @@ class Profile_C extends Component {
     
         return <div>
         <Nav2_C/>
-        {fbContent}            
+       <center> {fbContent}  </center>          
         <div className="App">
         <div className="container">
-        {/* <FaceBookBtn_C/> */}
-        
 
-        
+         {/* <center> <h4>Search! Match! Video Chat!</h4> </center>
+          <center> <img src="https://i.ibb.co/qRmFNZB/homepagedate.png" alt="Screen-Shot-2019-02-09-at-1-19-10-PM" border="0" width="50%" /></center> */}
+
+
+        {/* <FaceBookBtn_C/> */}
 
         {/* <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Smiley face" width="100%" /> */}
 
             <div className="card mb-4">
            
                 <div className="card-header">
-                <center> <button>Find Love</button></center>
-
+                {/* <center> <button>Find Love</button></center> */}
+<h3>Love is coming! Please tell us a little more about yourself.</h3>
                 </div>
                 <div className="card-body">
                     <div className="content">
