@@ -1,29 +1,36 @@
-const express = require("express");
-const mysql2 = require("mysql2");
-
+let express = require("express");
+let bodyParser = require("body-parser");
+let methodOverride = require("method-override");
 
 let db = require('./models');
 
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+let app = express();
+var PORT = process.env.PORT || 8080;
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(require("./routes/api-routes.js"));
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static(__dirname + "/public"));
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// Override with POST having ?_method=PUT
+app.use(methodOverride("_method"));
 
-app.listen(PORT, ()=>{
-    console.log("App listenign on " + PORT);
-});
-let routes = require('./controllers/liked.js');
-let routes = require('./controllers/matches.js');
-let routes = require('./controllers/users.js');
+// Handlebars
+let exphbs = require("express-handlebars");
+
+// Initialize Handlebars
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Routes
+let routes = require('./controllers/burgerController.js');
 
 app.use('/', routes);
 
+// Syncing our sequelize models and then starting our express app
+// db.sequelize.sync({ force: true }).then(function() {
 db.sequelize.sync({ force: true }).then(function() {
-    app.listen(PORT, function() {
-      console.log("App listening on PORT " + PORT);
-    });
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
   });
-  
+});
