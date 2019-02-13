@@ -1,23 +1,26 @@
 const express = require("express");
-const app = express();
-const mysql = require("mysql");
 const mysql2 = require("mysql2");
-const sequelize = require("sequelize");
-const db = require("./models");
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
 
 
-const PORT = process.env.PORT || 8080;
-app.use(express.static("public"))
+let db = require('./models');
+
+
+const app = express();
+const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(require("./routes/api-routes.js"));
 
-require("./routes/api-routes.js")(app);
-
-db.sequelize.sync({}).then(function() {
-  server.listen(PORT, ()=>{
-    console.log("App listening on PORT " + PORT);
-  });
+app.listen(PORT, ()=>{
+    console.log("App listenign on " + PORT);
 });
+
+app.use('/', routes);
+
+db.sequelize.sync().then(function() {
+    app.listen(PORT, function() {
+      console.log("App listening on PORT " + PORT);
+    });
+  });
+  
