@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql2 = require("mysql2");
-
+const db = require("./models");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
